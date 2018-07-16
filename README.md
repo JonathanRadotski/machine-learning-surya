@@ -1,2 +1,2 @@
 # machine-learning-surya
-Kode machine learning Surya 2018
+Machine-learning code for studying purposes
