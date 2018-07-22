@@ -28,6 +28,15 @@ while tokenx <= half_token_predict:
 # (dataset,label,predict,k=?
 
 
+def fruit_to_color(fruit):
+    color_of = {
+        'Jeruk': 'y',
+        'Pisang': 'g',
+        'Durian': 'b'
+    }
+    return color_of[fruit] if fruit in color_of else 'm'
+
+
 def K_Nearest_Neighbors(rows, label, prediction, k=5):
     distance = []
     counter = 0
@@ -76,23 +85,13 @@ print("{} adalah warna buah : {}".format(
     training_data_with_label[2][1], training_data_with_label[2][2]))
 
 for row in training_data_with_label:
-    if (row[2] == 'Jeruk'):
-        color = 'y'
-    if (row[2] == 'Pisang'):
-        color = 'g'
-    if (row[2] == 'Durian'):
-        color = 'b'
+    color = fruit_to_color(row[2])
     plt.scatter(row[0], row[1], s=100, color=color)
 
 result = K_Nearest_Neighbors(training_data, label, test_data_individual, k=5)
 print("result:  {}".format(result))
-if (result == 'Jeruk'):
-    color = 'y'
-if (result == 'Pisang'):
-    color = 'g'
-if (result == 'Durian'):
-    color = 'b'
 
+color = fruit_to_color(result)
 plt.scatter(
     test_data_individual[0], test_data_individual[1], s=100, marker='*', color=color)
 
