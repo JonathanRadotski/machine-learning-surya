@@ -9,18 +9,19 @@ training_data, test_data, label = [], [], []
 training_data_with_label = []
 token = 0
 tokenx = 0
-tokenpredict = len(data)
+token_predict = len(data)
+half_token_predict = 0.5 * token_predict
 
 x = np.array(data.iloc[:, 0])
 y = np.array(data.iloc[:, 1])
 z = np.array(data.iloc[:, 2])
 
-while token <= 0.5 * tokenpredict:
+while token <= half_token_predict:
     training_data.append([x[token], y[token]])
     label.append(z[token])
     token = token + 1
 
-while tokenx <= 0.5 * tokenpredict:
+while tokenx <= half_token_predict:
     training_data_with_label.append([x[tokenx], y[tokenx], z[tokenx]])
     tokenx = tokenx + 1
 
@@ -51,9 +52,9 @@ def K_Nearest_Neighbors(rows, label, prediction, k=5):
     return vote_result
 
 
-while tokenpredict > 0.5 * tokenpredict:
-    test_data.append([x[tokenpredict - 1], y[tokenpredict - 1]])
-    tokenpredict = tokenpredict - 1
+while token_predict > half_token_predict:
+    test_data.append([x[token_predict - 1], y[token_predict - 1]])
+    token_predict = token_predict - 1
 
 test_data_individual = [400, 3]
 
@@ -71,8 +72,8 @@ test_data_individual = [400, 3]
 #
 # print(buah_dict)
 
-print(training_data_with_label[2][1],
-      "  adalah warna buah :  ", training_data_with_label[2][2])
+print("{} adalah warna buah : {}".format(
+    training_data_with_label[2][1], training_data_with_label[2][2]))
 
 for row in training_data_with_label:
     if (row[2] == 'Jeruk'):
@@ -84,7 +85,7 @@ for row in training_data_with_label:
     plt.scatter(row[0], row[1], s=100, color=color)
 
 result = K_Nearest_Neighbors(training_data, label, test_data_individual, k=5)
-print("result:  ", result)
+print("result:  {}".format(result))
 if (result == 'Jeruk'):
     color = 'y'
 if (result == 'Pisang'):
